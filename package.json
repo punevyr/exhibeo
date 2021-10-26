@@ -1,0 +1,69 @@
+{
+  "name": "exhibeo",
+  "version": "0.1.0",
+  "homepage": ".",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "@airgap/beacon-sdk": "^2.3.1",
+    "@craco/craco": "^6.2.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@taquito/beacon-wallet": "^10.1.0",
+    "@taquito/taquito": "^10.1.0",
+    "axios": "^0.22.0",
+    "bootstrap": "^5.1.0",
+    "classnames": "^2.3.1",
+    "coinmarketcap-api": "^3.1.1",
+    "hyper-blink": "^1.1.2",
+    "imagesloaded": "^4.1.4",
+    "jquery": "^3.6.0",
+    "json": "^11.0.0",
+    "lodash": "^4.17.21",
+    "masonry-layout": "^4.2.2",
+    "mysql": "github:mysqljs/mysql",
+    "node-sass": "^6.0.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.6",
+    "react-collapsible": "^2.8.3",
+    "react-dom": "^17.0.2",
+    "react-ga": "^3.3.0",
+    "react-middle-ellipsis": "^1.2.1",
+    "react-native-web": "^0.17.5",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-timeline-scribble": "^1.0.14",
+    "vertical-timeline-component-react": "^2.1.2",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
+  }
+}
