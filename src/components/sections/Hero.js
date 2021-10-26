@@ -201,7 +201,7 @@ const Hero = ({
     var good = false
     const axios = require('axios')
     axios
-      .get('https://api.better-call.dev/v1/contract/mainnet/KT1VTp8ZBBrScQmVVTZRoQE28gx4fMWTTW6b/storage', {
+      .get('https://api.better-call.dev/v1/contract/mainnet/KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx/storage', {
       })
       .then(res => {
         for (var i in res.data[0].children) {

@@ -325,7 +325,7 @@ color: white;
     const axios = require('axios')
     var taken = false
     await axios
-      .get('https://api.better-call.dev/v1/contract/mainnet/KT1VTp8ZBBrScQmVVTZRoQE28gx4fMWTTW6b/storage', {
+      .get('https://api.better-call.dev/v1/contract/mainnet/KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx/storage', {
       })
       .then(res => {
         for (var i in res.data[0].children) {
@@ -350,7 +350,7 @@ color: white;
   }
   async function saveData() {
     var imga = objktArray.toString();
-    const EXHIBEO_CONTRACT = "KT1VTp8ZBBrScQmVVTZRoQE28gx4fMWTTW6b";
+    const EXHIBEO_CONTRACT = "KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx";
     const username = document.getElementById("username").value;
     if (username === "") {
       document.getElementById("warningtext").innerHTML = "Username cannot be empty"
@@ -398,8 +398,13 @@ color: white;
           var adiv = document.createElement("a");
           adiv.href = linka
           adiv.style = "text-decoration: underline;"
-          adiv.innerHTML = "Link to your profile"
+          adiv.innerHTML = "exhibeo.xyz/?"+username
           document.getElementById("linkforprofile").appendChild(adiv);
+          var bdiv = document.createElement("b");
+          bdiv.href = linka
+          bdiv.style = "display: block;"
+          bdiv.innerHTML = "Give the contract a minute or two to save the data, then your profile will be accessable at that link^"
+          document.getElementById("linkforprofile").appendChild(bdiv);
         } catch (error) {
           console.log(
             `The contract call failed and the following error was returned:`
