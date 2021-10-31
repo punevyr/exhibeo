@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { TezosToolkit } from "@taquito/taquito";
 import { DAppClient, TezosOperationType } from "@airgap/beacon-sdk";
+import "./account.css"
 
 import MiddleEllipsis from "react-middle-ellipsis";
 import styled from 'styled-components';
@@ -115,23 +116,25 @@ const Hero = ({
     }
 
 
-    //console.log(objktidArray)
     await showImages(linkarray)
-    console.log('loaded images')
-
-    var posts = document.querySelectorAll('.images');
-    imagesLoaded(posts, function () {
-      loadmason()
-      setloading(false)
-      changeVisibility()
-    });
-    var posts2 = document.querySelectorAll('.images2');
-    imagesLoaded(posts2, function () {
+    var grid = document.querySelector('.grid2');
+    var imgLoad = imagesLoaded( grid );
+    setloading(false)
+    changeVisibility()
+    imgLoad.on( 'progress', function( instance, image ) {
+    //   var result = image.isLoaded ? 'loaded' : 'broken';
+    // console.log( 'image is ' + result + ' for ' + image.img.src );
       loadmason()
     });
 
   }
-
+  function loadmason() {
+    var grid = document.querySelector('.grid2');
+    new Masonry(grid, {
+      itemSelector: '.grid-item2',
+      percentPosition: true
+    });
+  }
   function showImages(imgArray) {
 
     for (var i = 0; i < imgArray.length; i++) {
@@ -150,26 +153,13 @@ const Hero = ({
       var img = new Image();
       img.src = imgArray[i]
       img.style = "width: 100%;"
-      
-      if (i < 20) {
-        img.className = "images"
-      }
-      else {
-        img.className = "images2"
-      }
+      img.className = "images"
       var idd = objktidArray[i]
 
       document.getElementById(idd).appendChild(img);
     }
   }
-  function loadmason() {
-    var grid = document.querySelector('.grid2');
-    new Masonry(grid, {
-      itemSelector: '.grid-item2',
-      percentPosition: true
-    });
-    console.log("masonry ran")
-  }
+
   // Styling a regular HTML input
   const StyledInput = styled.input`
     border-top-style: hidden;
@@ -355,6 +345,9 @@ color: white;
     if (username === "") {
       document.getElementById("warningtext").innerHTML = "Username cannot be empty"
     }
+    else if(username.includes(" ")){
+      document.getElementById("warningtext").innerHTML = "Username cannot contain spaces"
+    }
     else if (imga === "") {
       document.getElementById("warningtext").innerHTML = "You cannot choose 0 images, select some images from below to display on your profile, then click save."
     }
@@ -397,14 +390,13 @@ color: white;
 
           var adiv = document.createElement("a");
           adiv.href = linka
-          adiv.style = "text-decoration: underline;"
-          adiv.innerHTML = "exhibeo.xyz/?"+username
+          adiv.style = "text-decoration: underline; font-size: xxx-large;"
+          adiv.innerHTML = "Link to your profile"
           document.getElementById("linkforprofile").appendChild(adiv);
-          var bdiv = document.createElement("b");
-          bdiv.href = linka
-          bdiv.style = "display: block;"
-          bdiv.innerHTML = "Give the contract a minute or two to save the data, then your profile will be accessable at that link^"
-          document.getElementById("linkforprofile").appendChild(bdiv);
+          var a2div = document.createElement("a");
+          a2div.style = "font-size: x-large;"
+          a2div.innerHTML = "Click the link and give the page ~30 seconds for blockchain confirmation. Then it will load your images"
+          document.getElementById("confirmtext").appendChild(a2div);
         } catch (error) {
           console.log(
             `The contract call failed and the following error was returned:`
@@ -416,7 +408,8 @@ color: white;
 
     }
   }
-
+//TODO, after submission wait until blockchain inclusion, then forward to profile
+//Do something about images not loading
   return (
     <section
     >
@@ -452,10 +445,10 @@ color: white;
           <div id="instructions" style={{ display: "none" }}>
             <Styledp style={{ padding: "5px" }}>STEPS</Styledp>
             <Styledp style={{ padding: "5px" }}><big>1</big>. Sign in with your wallet that contains the NFTs you wish to put in your exhibit</Styledp>
-            <Styledp style={{ padding: "5px" }}><big>2</big>. Enter a username. This will be turned into the link for your account</Styledp>
+            <Styledp style={{ padding: "5px" }}><big>2</big>. Enter a username. This will be turned into the link for your account, no spaces allowed</Styledp>
             <Styledp style={{ padding: "5px" }}><big>3</big>. Select images you want to display on your profile. The images will be displayed in the order you select them.</Styledp>
             <Styledp style={{ padding: "5px" }}><big>4</big>. Click save, if the username is taken an error should appear.</Styledp>
-            <Styledp style={{ padding: "5px" }}>Due to the data being stored on a smart contract, the saving will take place as a transaction with 0 fees (besides gas + storage if needed).</Styledp></div>
+            <Styledp style={{ padding: "5px" }}>Due to the data being stored on a smart contract, the saving will take place as a transaction with 0 fees (besides gas + storage if needed). Along with this it will take about 30 seconds for your profile to be updated once you submit the transaction</Styledp></div>
           <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
             <StyledInput autoComplete="off" id="username"
               placeholder="Username"
@@ -468,9 +461,9 @@ color: white;
       </div>}
       <div id="linkforprofile" style={{ padding: "10px", textAlign: "center" }}>
       </div>
-
-
-      {loading && <div style={{ textAlign: "center", color: 'lightblue' }}>Loading images....speed dependent on your internet and nft amount. Please be patient<div style={{ alignItems: "center", justifyContent: "center", display: "flex" }} ><img src={infgif} alt="loading..." /></div></div>}
+      <div id="confirmtext" style={{ padding: "10px", textAlign: "center" }}>
+      </div>
+      {loading && <div style={{ alignItems: "center", justifyContent: "center", display: "flex" }} ><img src={infgif} alt="loading..." /></div>}
       {notloggedin && <div style={{ alignItems: "center", justifyContent: "center", display: "flex" }} ><img src={infgif} alt="loading..." /></div>}
       <div id='imageGallery2' style={{ visibility: "hidden" }} className="grid2">
         <div className="grid-sizer"></div>

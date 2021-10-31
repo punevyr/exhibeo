@@ -102,20 +102,24 @@ const Hero = ({
       objktidArray[i] = objkt
     }
     await showImages(linkarray)
-
-    var posts = document.querySelectorAll('.images');
-    imagesLoaded(posts, function () {
+    var grid = document.querySelector('.grid');
+    var imgLoad = imagesLoaded( grid );
+    setloading(false)
+    changeVisibility()
+    imgLoad.on( 'progress', function( instance, image ) {
+    //   var result = image.isLoaded ? 'loaded' : 'broken';
+    //   console.log( 'image is ' + result + ' for ' + image.img.src );
       loadmason()
-      setloading(false)
-      changeVisibility()
     });
-    var posts2 = document.querySelectorAll('.images2');
-    imagesLoaded(posts2, function () {
-      loadmason()
+  }
+  function loadmason() {
+    var grid = document.querySelector('.grid');
+    new Masonry(grid, {
+      itemSelector: '.grid-item',
+      percentPosition: true
     });
 
   }
-
   function showImages(imgArray) {
     var count = 0
     for (var i = 0; i < imgArray.length; i++) {
@@ -163,14 +167,7 @@ const Hero = ({
     }
 
   }
-  function loadmason() {
-    var grid = document.querySelector('.grid');
-    new Masonry(grid, {
-      itemSelector: '.grid-item',
-      percentPosition: true
-    });
 
-  }
   function changeVisibility() {
     const vis = document.getElementById("imageGallery").style.visibility;
     if (vis === 'hidden') {
