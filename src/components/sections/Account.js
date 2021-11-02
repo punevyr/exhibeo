@@ -315,12 +315,13 @@ color: white;
     const axios = require('axios')
     var taken = false
     await axios
-      .get('https://api.better-call.dev/v1/contract/mainnet/KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx/storage', {
+      .get('https://api.better-call.dev/v1/contract/mainnet/KT1DuiWewTe1NqexT9Jekes9Vk7TSbuxkNb9/storage', {
       })
       .then(res => {
         for (var i in res.data[0].children) {
-          if (res.data[0].children[i].children[1].value === username) {
-            if (res.data[0].children[i].name === walletAddress) {
+          console.log(res.data[0].children[i])
+          if (res.data[0].children[i].name === username) {
+            if (res.data[0].children[i].children[0].value === walletAddress) {
               console.log("username belongs to owner")
               taken = false
             }
@@ -340,7 +341,7 @@ color: white;
   }
   async function saveData() {
     var imga = objktArray.toString();
-    const EXHIBEO_CONTRACT = "KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx";
+    const EXHIBEO_CONTRACT = "KT1DuiWewTe1NqexT9Jekes9Vk7TSbuxkNb9";
     const username = document.getElementById("username").value;
     if (username === "") {
       document.getElementById("warningtext").innerHTML = "Username cannot be empty"
