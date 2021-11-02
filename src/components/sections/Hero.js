@@ -83,6 +83,7 @@ const Hero = ({
 
     return await result.json();
   }
+
   var objktidArray = [];
 
   async function doFetch(wallet) {
@@ -92,7 +93,6 @@ const Hero = ({
       console.error(errors);
     }
     const result = data.hic_et_nunc_token_holder
-
     var linkarray = [] //array of ipfs links for the img divs
     for (var i = 0; i < result.length; i++) {
       var link = result[i].token.display_uri.split('/')
@@ -115,45 +115,50 @@ const Hero = ({
     });
 
   }
+  function display(i,j,objkts,imgArray) {      
+    var div = document.createElement("a");
+    div.className = "grid-item"
+    div.id = objkts[i]
+
+    var linka = "https://www.hicetnunc.xyz/objkt/" + objkts[i]
+    div.href = linka
+    div.style = "width: 33%;"
+    document.getElementById("imageGallery").appendChild(div);
+
+    var img = new Image();
+    img.src = imgArray[j]
+    img.style = "width: 100%;"
+    if (i < 20) {
+      img.className = "images"
+    }
+    else {
+      img.className = "images2"
+    }
+    var idd = objkts[i]
+
+    document.getElementById(idd).appendChild(img);
+
+  }
 
   function showImages(imgArray) {
-    var count = 0
-    for (var i = 0; i < imgArray.length; i++) {
-      var inarray = false
-      if (imagelist.indexOf(objktidArray[i]) > -1) {
-        inarray = true
-        count = count + 1
-      }
-      if (inarray) {
-        var div = document.createElement("a");
-        div.className = "grid-item"
-        div.id = objktidArray[i]
-
-        var linka = "https://www.hicetnunc.xyz/objkt/" + objktidArray[i]
-        div.href = linka
-        div.style = "width: 33%;"
-        document.getElementById("imageGallery").appendChild(div);
-
-        var img = new Image();
-        img.src = imgArray[i]
-        img.style = "width: 100%;"
-        if (i < 20) {
-          img.className = "images"
+    console.log(imgArray)
+    var count = 0 
+    const objkts = imagelist.split(",");
+    for (var i=0; i < objkts.length; i++) {
+      for (var j=0; j < objktidArray.length; j++) {
+        if(objkts[i] == objktidArray[j]){
+          display(i,j, objkts, imgArray)
+          count = count + 1
         }
-        else {
-          img.className = "images2"
-        }
-        var idd = objktidArray[i]
-
-        document.getElementById(idd).appendChild(img);
-
       }
 
     }
+
     if (count === 0) {
       window.location.href = "/";
       console.log("account page")
     }
+
     var elem = document.getElementsByClassName('grid-item');
     if (elem.length < 4) {
       for (var j = 0; j < elem.length; ++j) {
@@ -163,6 +168,9 @@ const Hero = ({
     }
 
   }
+
+
+
   function loadmason() {
     var grid = document.querySelector('.grid');
     new Masonry(grid, {
@@ -201,14 +209,14 @@ const Hero = ({
     var good = false
     const axios = require('axios')
     axios
-      .get('https://api.better-call.dev/v1/contract/mainnet/KT1V69m3Q6yAwQfo1PgFDVUeWgmtu52J2JEx/storage', {
+      .get('https://api.better-call.dev/v1/contract/mainnet/KT1DuiWewTe1NqexT9Jekes9Vk7TSbuxkNb9/storage', {
       })
       .then(res => {
         for (var i in res.data[0].children) {
-          if (res.data[0].children[i].children[1].value === username) {
-            imagelist = res.data[0].children[i].children[0].value
+          if (res.data[0].children[i].name === username) {
+            imagelist = res.data[0].children[i].children[1].value
             good = true
-            isValid(res.data[0].children[i].name)
+            isValid(res.data[0].children[i].children[0].value)
           }
         }
         if(!good){
