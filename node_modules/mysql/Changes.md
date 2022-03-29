@@ -6,8 +6,15 @@ you spot any mistakes.
 
 ## HEAD
 
+* Accept the `maxVersion` and `minVersion` properties in connection `ssl` option #2301 #2304
 * Support Node.js 14.x
-* Update `sqlstring` to 2.3.2
+* Support Node.js 15.x
+* Support Node.js 16.x
+* Support Node.js 17.x
+* Update `bignumber.js` to 9.0.2
+* Update `safe-buffer` to 5.2.1
+* Update `sqlstring` to 2.3.3
+  - Fix escaping `Date` objects from foreign isolates
   - perf: remove outdated array pattern
 
 ## v2.18.1 (2020-01-23)

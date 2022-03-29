@@ -1,4 +1,4 @@
-# exhibeo scripts to deploy
+# ooonus scripts to deploy
 
 In the project directory, you can run:
 
